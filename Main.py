@@ -27,7 +27,7 @@ async def main():
     db_name="extractions"
     global influxdb_client
     influxdb_client = InfluxDBClient(db_url=db_url, token=token, org=org, db_name=db_name)
-    record_data = Record_Data(record_id=str(int(time.time())), beans="Plums Espresso", temperature=91.5)
+    record_data = Record_Data(record_id=str(int(time.time())), beans="San Augustin - Geisha Trincheras", temperature=91.5)
     write_record_data_to_influxdb(record_data)
     try:
         await asyncio.gather(

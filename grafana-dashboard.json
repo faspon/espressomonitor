@@ -82,7 +82,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT beans\nFROM extractions AS e\nWHERE beans IS NOT NULL\nORDER BY e.time ASC\nLIMIT 1",
+          "rawSql": "SELECT beans\nFROM extractions AS e\nWHERE beans IS NOT NULL\nORDER BY e.time DESC\nLIMIT 1",
           "refId": "A",
           "sql": {
             "columns": [

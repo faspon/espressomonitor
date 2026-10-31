@@ -1,3 +1,6 @@
+![grafana screenshot](/assets/grafana.png)
+
+
 ## URLs
 * Influx DB connection: http://localhost:8181
 * Grafana: http://localhost:3000

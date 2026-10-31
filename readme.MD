@@ -1,3 +1,9 @@
+# Real Time Espresso Monitor and Logger
+
+* uses an Influx DB and a Grafana dashboard from a docker image
+* ready to use a Bookoo scale and pressure monitor
+* includes test fakes for simulations when the hardware sensors are not available
+
 ![grafana screenshot](/assets/grafana.png)
 
 

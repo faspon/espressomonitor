@@ -10,6 +10,7 @@
 ## URLs
 * Influx DB connection: http://localhost:8181
 * Grafana: http://localhost:3000
+
 (as defined in the docker compose file)
 
 ## Tricks

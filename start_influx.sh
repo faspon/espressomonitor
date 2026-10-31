@@ -4,4 +4,4 @@ set -a
 set +a
 
 cd "$(dirname "$0")"
-exec docker compose -f compose.yml up influxdb2
+exec docker compose -f compose.yml up

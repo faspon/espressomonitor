@@ -5,13 +5,13 @@ from enum import Enum
 from typing import Callable
 from bleak import BleakClient, BleakScanner
 from functools import partial
-from Log_Entry import Log_Entry
+from scale import Scale_Log_Entry
 
 class BYTE_ORDER(Enum):
         LITTLE_ENDIAN = "little"
         BIG_ENDIAN = "big"
 
-class BookooClient:
+class Bookoo_Scale_Client:
 
     previous_weight = sys.float_info.min
 
@@ -100,7 +100,6 @@ class BookooClient:
         flow_rate = int.from_bytes(packet[11:13], BYTE_ORDER.BIG_ENDIAN.value) / 100
         standby_minutes = int.from_bytes(packet[14:16], BYTE_ORDER.BIG_ENDIAN.value) / 10
 
-        
         #if previous_weight is None or weight_grams != previous_weight:
         #    handle_weight_data.previous_weight = weight_grams
         if weight_grams != self.previous_weight:
@@ -122,11 +121,9 @@ class BookooClient:
             )
             self.previous_weight = weight_grams
         on_logging(
-                   Log_Entry(
-                                    float(row["temperature"]),
-                                    float(row["pressure"]),
-                                    float(row["weight"]),
-                                    float(row["flowrate"]),
+                   Scale_Log_Entry(
+                                    float(weight_grams),
+                                    float(flow_rate),
                                 )
         )
 

@@ -1,27 +1,58 @@
 import influxdb_client
-
-import Log_Entry
+from Record_Data import Record_Data
+from scale.Scale_Log_Entry import Scale_Log_Entry
+from pressure_sensor.PressureLogEntry import Pressure_Log_Entry
 
 class InfluxDBClient:
-    def __init__(self, url: str, token: str, org: str, bucket:str):
-        self.url = url
+    def __init__(self, db_url: str, token: str, org: str, db_name:str):
+        self.db_url = db_url
         self.token = token
         self.influx_org = org
-        self.influx_bucket = bucket
-        self.client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
+        self.influx_db_name = db_name
+        self.client = influxdb_client.InfluxDBClient(url=db_url, token=token, org=org)
         self.write_api = self.client.write_api()
 
-    def write_log_entry_to_influxdb(self, data_point: Log_Entry):
+    def write_scale_entry_to_influxdb(self, record_id: str, scale_data_point: Scale_Log_Entry):
         point = (
-            influxdb_client.Point("scale")
-            #.tag("drink", "Espresso")
-            .field("weight", data_point.weight)
-            .field("temperature", data_point.temperature)
-            .field("pressure", data_point.pressure)
-            .field("flow rate", data_point.flow_rate)
+            influxdb_client.Point("extractions")
+            .tag("record_id", record_id)
+            .field("weight", scale_data_point.weight)
+            .field("flow_rate", scale_data_point.flow_rate)
         )
         self.write_api.write(
-            bucket=self.influx_bucket,
+            bucket=self.influx_db_name,
+            org=self.influx_org,
+            record=point,
+        )
+
+    def write_pressure_entry_to_influxdb(self, record_id: str, pressure_data_point: Pressure_Log_Entry):
+        point = (
+            influxdb_client.Point("extractions")
+            .tag("record_id", record_id)
+            .field("pressure", pressure_data_point.pressure)
+        )
+        self.write_api.write(
+            bucket=self.influx_db_name,
+            org=self.influx_org,
+            record=point,
+        )
+
+    def write_record_entry_to_influxdb(self, record_data: Record_Data):
+        point = influxdb_client.Point("extractions")
+        for name, value in vars(record_data).items():
+            if name == "record_id":
+                point = point.tag(name, str(value))
+            else:
+                point = point.field(name, value)
+
+        # point = (
+        #     influxdb_client.Point("extractions")
+        #     .tag("recording_id", record_data.record_id)
+        #     .tag("beans", record_data.beans)
+        #     .tag("temperature", record_data.temperature)
+        #)
+        self.write_api.write(
+            bucket=self.influx_db_name,
             org=self.influx_org,
             record=point,
         )

@@ -1,5 +1,5 @@
 # Real Time Espresso Monitor and Logger
-
+Logs espresso extraction data and provides visualisations to help you analyze the extraction profile
 * uses an Influx DB and a Grafana dashboard from a docker image
 * ready to use a Bookoo bluetooth scale and pressure monitor
 * includes test fakes for simulations when the hardware sensors are not available

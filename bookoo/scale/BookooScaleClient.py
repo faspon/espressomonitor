@@ -5,13 +5,12 @@ from enum import Enum
 from typing import Callable
 from bleak import BleakClient, BleakScanner
 from functools import partial
-from scale import Scale_Log_Entry
+from bookoo.scale import Scale_Log_Entry
+from scale.Abstract_Scale import AbstractScale
+from bookoo import Bookoo
+from bookoo.Bookoo import BYTE_ORDER
 
-class BYTE_ORDER(Enum):
-        LITTLE_ENDIAN = "little"
-        BIG_ENDIAN = "big"
-
-class Bookoo_Scale_Client:
+class Bookoo_Scale_Client(AbstractScale):
 
     previous_weight = sys.float_info.min
 
@@ -25,33 +24,11 @@ class Bookoo_Scale_Client:
         self.previous_weight = sys.float_info.min
         self.device = None
 
-    async def __get_bookoo_device(self):
-        logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
-        logging.info("Scanning for Bluetooth devices...")
-
-        devices = await BleakScanner.discover()
-        target_address = self.TARGET_SCALE_ADDRESS.casefold()
-        self.device = next(
-            (device for device in devices if device.address.casefold() == target_address),
-            None,
-        )
-
-        if self.device is None:
-            logging.info("Bluetooth device %s not found", self.TARGET_SCALE_ADDRESS)
-            return None
-
-        logging.info(
-            "Found Bluetooth device %s (%s)",
-            self.device.name or "Unknown",
-            self.device.address,
-        )
-        return self.device
-
-    async def read_data_from_scale(self,
+    async def read_scale_data(self,
                                    on_logging: Callable[[float], None]
                                    ) -> None:
         if self.device is None:
-            await self.__get_bookoo_device()
+            await Bookoo.get_bookoo_device()
         if self.device is None:
             return
 

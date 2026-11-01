@@ -1,7 +1,7 @@
 import influxdb_client
 from Record_Data import Record_Data
-from scale.Scale_Log_Entry import Scale_Log_Entry
-from pressure_sensor.PressureLogEntry import Pressure_Log_Entry
+from bookoo.scale.Scale_Log_Entry import Scale_Log_Entry
+from bookoo.pressure_sensor.PressureLogEntry import Pressure_Log_Entry
 
 class InfluxDBClient:
     def __init__(self, db_url: str, token: str, org: str, db_name:str):

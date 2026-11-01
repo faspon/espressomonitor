@@ -49,7 +49,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 6,
         "x": 0,
         "y": 0
@@ -376,6 +376,88 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 0,
+        "y": 3
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.2.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT shot_time\nFROM extractions AS e\nWHERE shot_time IS NOT NULL\nORDER BY e.time DESC\nLIMIT 1",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "time [seconds]",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "bg2scd5fiij9cd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "fixedColor": "green",
             "mode": "fixed"
           },
@@ -398,10 +480,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 6,
         "x": 0,
-        "y": 5
+        "y": 6
       },
       "id": 7,
       "options": {
@@ -852,5 +934,5 @@
   "timezone": "browser",
   "title": "Espresso Scale",
   "uid": "espresso-scale",
-  "version": 72
+  "version": 77
 }

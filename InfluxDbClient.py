@@ -42,9 +42,10 @@ class InfluxDBClient:
         for name, value in vars(record_data).items():
             if name == "record_id":
                 point = point.tag(name, str(value))
+            elif name == "shot_time":
+                point = point.field("shot_time", float(value))
             else:
                 point = point.field(name, value)
-
         # point = (
         #     influxdb_client.Point("extractions")
         #     .tag("recording_id", record_data.record_id)

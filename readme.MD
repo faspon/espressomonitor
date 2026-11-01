@@ -4,8 +4,7 @@
 * ready to use a Bookoo bluetooth scale and pressure monitor
 * includes test fakes for simulations when the hardware sensors are not available
 
-![grafana screenshot](/assets/grafana.png)
-
+![grafana screenshot](/assets/grafana.gif)
 
 ## URLs
 * Influx DB connection: http://localhost:8181
@@ -13,8 +12,18 @@
 
 (as defined in the docker compose file)
 
-## Tricks
-Delete all data from the influx db:
+## Setup
+### Docker images
+* Adapt the credentials in influxdb3-admin-token.js
+* ./start_influx.sh
+### DB registration
+In Grafana, connect against the Influx DB:
+* url: http://influxdb3:8181
+* Product: InfluxDB Enterprise 3.x
+* Query language: SQL
+* Database: extractions
+
+### Delete table from the influx db:
 
 ````
 TOKEN="$(python3 -c 'import json; print(json.load(open("influxdb3-admin-token.json"))["token"])')"

@@ -25,7 +25,8 @@ services:
     depends_on:
       - influxdb3
     ports:
-      - 127.0.0.1:3000:3000
+    # - 127.0.0.1:3000:3000
+      - 3000:3000 # not confied to localhost
     environment:
       GF_FEATURE_TOGGLES_ENABLE: newInfluxDSConfigPageDesign
       GF_DASHBOARDS_MIN_REFRESH_INTERVAL: 500ms

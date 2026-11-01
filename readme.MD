@@ -5,7 +5,9 @@ Logs espresso extraction data and provides visualisations to help you analyze th
 * includes test fakes for simulations when the hardware sensors are not available
 
 ![grafana screenshot](/assets/grafana.gif)
-
+### Info
+* shot time is started once the pressure inside the brew group exceeds a specified threshold
+* shot time is ended once the flow rate drops to 0
 ## Setup
 ### Docker images for Influx DB and Grafana
 * Adapt the credentials in influxdb3-admin-token.js

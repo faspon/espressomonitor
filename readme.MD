@@ -1,5 +1,5 @@
 # Real Time Espresso Monitor and Logger
-Logs espresso extraction data and provides visualisations to help you analyze the extraction profile
+Logs espresso extraction data and provides visualisations to help you analyze the brew profile
 * uses an Influx DB and a Grafana dashboard from a docker image
 * ready to use a Bookoo bluetooth scale and pressure monitor
 * includes test fakes for simulations when the hardware sensors are not available
@@ -7,7 +7,7 @@ Logs espresso extraction data and provides visualisations to help you analyze th
 ![grafana screenshot](/assets/grafana.gif)
 ### Info
 * shot time is started once the pressure inside the brew group exceeds a specified threshold
-* shot time is ended once the flow rate drops to 0
+* shot time is ended once the flow rate drops back to 0
 ## Setup
 ### Docker images for Influx DB and Grafana
 * Adapt the credentials in influxdb3-admin-token.js

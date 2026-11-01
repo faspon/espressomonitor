@@ -6,16 +6,16 @@
 
 ![grafana screenshot](/assets/grafana.gif)
 
-## URLs
+## Setup
+### Docker images
+* Adapt the credentials in influxdb3-admin-token.js
+* ./start_influx.sh
+### URLs
 * Influx DB connection: http://localhost:8181
 * Grafana: http://localhost:3000
 
 (as defined in the docker compose file)
 
-## Setup
-### Docker images
-* Adapt the credentials in influxdb3-admin-token.js
-* ./start_influx.sh
 ### DB registration
 In Grafana, connect against the Influx DB:
 * url: http://influxdb3:8181
@@ -23,10 +23,10 @@ In Grafana, connect against the Influx DB:
 * Query language: SQL
 * Database: extractions
 
-# Grafana Setup
+### Grafana Setup
 Use grafana-dashboard.json for the dashboard definition
 
-### Delete table from the influx db:
+### Cleanup: delete table from the influx db:
 
 ````
 TOKEN="$(python3 -c 'import json; print(json.load(open("influxdb3-admin-token.json"))["token"])')"

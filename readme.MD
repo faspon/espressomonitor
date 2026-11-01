@@ -7,9 +7,9 @@
 ![grafana screenshot](/assets/grafana.gif)
 
 ## Setup
-### Docker images
+### Docker images for Influx DB and Grafana
 * Adapt the credentials in influxdb3-admin-token.js
-* ./start_influx.sh
+* run `./start_influx.sh` to build the containers from the attached compose file
 ### URLs
 * Influx DB connection: http://localhost:8181
 * Grafana: http://localhost:3000
@@ -24,7 +24,7 @@ In Grafana, connect against the Influx DB:
 * Database: extractions
 
 ### Grafana Setup
-Use grafana-dashboard.json for the dashboard definition
+Use `grafana-dashboard.json` for the dashboard definition
 
 ### Cleanup: delete table from the influx db:
 

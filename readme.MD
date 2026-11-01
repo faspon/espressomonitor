@@ -23,6 +23,9 @@ In Grafana, connect against the Influx DB:
 * Query language: SQL
 * Database: extractions
 
+# Grafana Setup
+Use grafana-dashboard.json for the dashboard definition
+
 ### Delete table from the influx db:
 
 ````

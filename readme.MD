@@ -9,11 +9,11 @@ Logs espresso extraction data and provides visualisations to help you analyze th
 * shot time is started once the pressure inside the brew group exceeds a specified threshold
 * shot time is ended once the flow rate drops back to 0
 ## Setup
-### Docker images for Influx DB and Grafana
+### Docker images for InfluxDB and Grafana
 * Adapt the credentials in influxdb3-admin-token.js
 * run `./start_monitor.sh` to build the containers from the attached compose file
 ### URLs
-* Influx DB connection: http://localhost:8181
+* InfluxDB connection: http://localhost:8181
 * Grafana: http://localhost:3000
 
 (as defined in the docker compose file)
@@ -27,7 +27,7 @@ Set `GRAFANA_DATA_SRC_NAME`, `INFLUXDB_HOST`, `INFLUXDB_PORT`, `INFLUXDB_DB`, an
 ### Grafana Setup
 Use `grafana-dashboard.json` for the dashboard definition
 
-### Cleanup: delete table from the influx db:
+### Cleanup: delete table from the InfluxDB:
 ````
 TOKEN="$(python3 -c 'import json; print(json.load(open("influxdb3-admin-token.json"))["token"])')"
 docker compose exec -T influxdb3 influxdb3 delete table \

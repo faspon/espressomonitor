@@ -11,7 +11,7 @@ Logs espresso extraction data and provides visualisations to help you analyze th
 ## Setup
 ### Docker images for Influx DB and Grafana
 * Adapt the credentials in influxdb3-admin-token.js
-* run `./start_influx.sh` to build the containers from the attached compose file
+* run `./start_monitor.sh` to build the containers from the attached compose file
 ### URLs
 * Influx DB connection: http://localhost:8181
 * Grafana: http://localhost:3000
@@ -19,17 +19,15 @@ Logs espresso extraction data and provides visualisations to help you analyze th
 (as defined in the docker compose file)
 
 ### DB registration
-In Grafana, connect against the Influx DB:
-* url: http://influxdb3:8181
-* Product: InfluxDB Enterprise 3.x
-* Query language: SQL
-* Database: extractions
+The InfluxDB datasource is provisioned automatically from `grafana_setup/datasource.yaml`.
+Set `GRAFANA_DATA_SRC_NAME`, `INFLUXDB_HOST`, `INFLUXDB_PORT`, `INFLUXDB_DB`, and
+`INFLUXDB3_ADMIN_TOKEN` in `.env`. For the settings shown here, use `influxdb3`,
+`8181`, and `extractions` for the host, port, and database.
 
 ### Grafana Setup
 Use `grafana-dashboard.json` for the dashboard definition
 
 ### Cleanup: delete table from the influx db:
-
 ````
 TOKEN="$(python3 -c 'import json; print(json.load(open("influxdb3-admin-token.json"))["token"])')"
 docker compose exec -T influxdb3 influxdb3 delete table \
@@ -37,5 +35,14 @@ docker compose exec -T influxdb3 influxdb3 delete table \
   --token "$TOKEN" \
   --hard-delete now \
   extractions
+unset TOKEN
+````
+### Load dashboard on other devices in the same LAN
+Use ```` ipconfig getifaddr en0 ```` to retrieve the host IP and the port reserved for Grafana
+
+### Check if the database is alive
+`````
+TOKEN="$(python3 -c 'import json; print(json.load(open("influxdb3-admin-token.json"))["token"])')"
+curl -H "Authorization: Bearer $TOKEN" http://localhost:8181/health
 unset TOKEN
 ````

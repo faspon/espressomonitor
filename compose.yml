@@ -13,7 +13,7 @@ services:
       - --admin-token-file
       - /run/secrets/influxdb3-admin-token
     ports:
-      - 127.0.0.1:8181:8181
+      - 127.0.0.1:${INFLUXDB_PORT}:8181
     secrets:
       - influxdb3-admin-token
     volumes:
@@ -30,7 +30,17 @@ services:
     environment:
       GF_FEATURE_TOGGLES_ENABLE: newInfluxDSConfigPageDesign
       GF_DASHBOARDS_MIN_REFRESH_INTERVAL: 500ms
+      GRAFANA_DATA_SRC_NAME: ${GRAFANA_DATA_SRC_NAME:?GRAFANA_DATA_SRC_NAME must be set in .env}
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USERNAME:?GRAFANA_ADMIN_USERNAME must be set in .env}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?GRAFANA_ADMIN_PASSWORD must be set in .env}
+      INFLUXDB_HOST: ${INFLUXDB_HOST:?INFLUXDB_HOST must be set in .env}
+      INFLUXDB_PORT: ${INFLUXDB_PORT:?INFLUXDB_PORT must be set in .env}
+      INFLUXDB_NAME: ${INFLUXDB_NAME:?INFLUXDB_NAME must be set in .env}
+      INFLUXDB3_ADMIN_TOKEN: ${INFLUXDB3_ADMIN_TOKEN:?INFLUXDB3_ADMIN_TOKEN must be set in .env}
     volumes:
+      - ./grafana_setup/dashboards:/etc/grafana/dashboards
+      - ./grafana_setup/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+      - ./grafana_setup/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
       - type: volume
         source: grafana-data
         target: /var/lib/grafana

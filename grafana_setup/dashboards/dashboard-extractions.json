@@ -923,7 +923,7 @@
     "list": []
   },
   "time": {
-    "from": "now-1m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -932,7 +932,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Espresso Scale",
-  "uid": "espresso-scale",
+  "title": "Espresso Extractions",
+  "uid": "espresso-extractions",
   "version": 77
 }
